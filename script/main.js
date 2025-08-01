@@ -11,7 +11,7 @@ const stage = new createjs.Stage(canvas);
 const selectionManager = new SelectionManager(stage);
 
 const heart = new Heart(150, 250);
-const text = new TextItem(350, 250);
+const text = new TextItem(canvas.width / 2, canvas.height / 2);
 const gridSquare = new GridSquare(550, 250);
 const allItems = [heart, text, gridSquare];
 window.allItems = allItems;
@@ -47,10 +47,12 @@ gridSquare.getDisplayObject().on("click", () => {
 });
 
 const bgLayer = new createjs.Shape();
-bgLayer.graphics.beginFill("#ffffff").drawRect(0, 0, canvas.width, canvas.height);
-bgLayer.alpha = 0.01;  // invisible but clickable
+bgLayer.graphics
+  .beginFill("#ffffff")
+  .drawRect(0, 0, canvas.width, canvas.height);
+bgLayer.alpha = 0.01; // invisible but clickable
 bgLayer.name = "bgLayer";
-stage.addChildAt(bgLayer, 0);  // always at bottom
+stage.addChildAt(bgLayer, 0); // always at bottom
 
 stage.on("click", (evt) => {
   // Palette ignore

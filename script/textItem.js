@@ -1,7 +1,7 @@
 import { EnableDrag } from "./enableDrag.js";
 
 export class TextItem {
-  constructor(x,y) {
+  constructor(x, y) {
     this.container = new createjs.Container();
     this.container.x = x;
     this.container.y = y;
@@ -24,7 +24,7 @@ export class TextItem {
   }
 
   enableDrag() {
-    const d = new EnableDrag(this.container,this.isDragging);
+    const d = new EnableDrag(this.container, this.isDragging);
     d.drag();
   }
 
@@ -39,20 +39,19 @@ export class TextItem {
   }
 
   drawSelectionBorder() {
-    const bounds = this.text.getBounds();
     const g = this.selectionBorder.graphics;
     g.clear();
+
+    // Text ke around border ke liye measureText
+    const width = this.text.getMeasuredWidth();
+    const height = this.text.getMeasuredLineHeight();
+
     g.setStrokeStyle(1)
       .beginStroke("blue")
-      .drawRect(
-        bounds.x - 10,
-        bounds.y - 10,
-        bounds.width + 20,
-        bounds.height + 10
-      );
+      .drawRect(-width / 2 - 5, -height / 2 - 5, width + 10, height + 10);
   }
 
-  getDisplayObject(){
+  getDisplayObject() {
     return this.container;
   }
 
